@@ -1,4 +1,8 @@
 /*Look solution on Striver A to Z Sheet : (https://takeuforward.org/data-structure/combination-sum-1/) */
+/*
+  TC->O(2^t * k)
+  SC-> O(k*x)
+*/
 
 public static void findCombination(int i,int n, List<List<Integer>>ans,List<Integer>ds,int target,int []arr ){
         if(i==n){
