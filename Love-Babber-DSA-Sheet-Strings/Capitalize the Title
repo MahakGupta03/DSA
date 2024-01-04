@@ -1,0 +1,37 @@
+
+/*  TWO POINTER */
+
+//jese hi space character aata h tb word ki length check krte h (i-j) se ...agar length 2 se jada aati h to j pr jo character h usko capitalize krte h
+char s[] = title.toCharArray();
+        int j=0;
+        for(int i=0;i<=title.length();i++){
+            if(i==title.length() || s[i]==' '){
+                if(i-j>2){
+                    s[j] = Character.toUpperCase(s[j]);
+                }
+                j=i+1;
+            }
+            else{
+                s[i] = Character.toLowerCase(s[i]);
+            }
+            
+        }
+        return String.valueOf(s);
+
+/* MY APPROACH */
+        // String str[] = title.split(" ");
+        // StringBuilder result = new StringBuilder();
+        // String cap = "";
+        // for(String s : str){
+        //     if(s.length()<=2){
+        //         result.append(s.toLowerCase()).append(" ");
+                
+        //     }
+        //     else{
+        //         cap = s.substring(0,1).toUpperCase() + s.substring(1,s.length()).toLowerCase();
+        //         result.append(cap).append(" ");
+                
+        //     }
+            
+        // }
+        // return result.toString().trim();

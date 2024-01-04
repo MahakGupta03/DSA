@@ -1,0 +1,16 @@
+
+        s.trim();
+        String []str=s.split(" +");
+        int l=0,h=str.length-1;
+        while(l<=h){
+            String temp=str[l];
+            str[l] = str[h];
+            str[h] = temp;
+            l++;
+            h--;
+        }
+        StringBuilder ans = new StringBuilder();
+        for(int i=0;i<str.length;i++){
+            ans.append(str[i]).append(" ");
+        }
+        return ans.toString().trim();

@@ -1,0 +1,49 @@
+ /*OPTIMAL APPORACH
+           TC-> O(n)
+           SC-> O(n)
+    */
+        // add elements to set then check in set ki set me current element se chota koisa element present h kya set me agr h to loop continue kro or agr nhi h to sequence check kro 
+        int n = nums.length;
+        if(n==0) return 0;
+        int longest = 0;
+        Set<Integer> set = new HashSet<>();
+        for(int el : nums){
+            set.add(el);
+        }
+        for(int e : set){
+            if(!set.contains(e-1)){
+                int x = e;
+                int count = 1;
+                while(set.contains(x+1)){
+                    x=x+1;
+                    count=count+1;
+                }
+                longest = Math.max(longest,count);
+            }
+
+        }
+        return longest;
+
+ /* BETTER APPORACH
+        TC->O(nlogn)
+  */
+        Arrays.sort(nums);
+        int j=0;
+        int count = 1;
+        int maxCount = 1;
+        if(nums.length==0){
+            return 0;
+        }
+        while(j<nums.length-1){
+            if(nums[j]+1==nums[j+1]){
+                count++;
+                maxCount = Math.max(count,maxCount);
+            }else if(nums[j]==nums[j+1]){
+                j++;
+                continue;
+            }else{
+                count = 1;
+            }
+            j++;
+        }
+        return maxCount;

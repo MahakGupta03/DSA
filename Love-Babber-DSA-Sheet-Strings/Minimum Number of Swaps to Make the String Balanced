@@ -1,0 +1,49 @@
+/* WITHOUT STACK (open and close pointer) */
+
+        int open=0,close=0;
+        for(int i=0;i<s.length();i++){
+            //open bracket ho to open ko +1 krdo
+            if(s.charAt(i)=='['){
+                open++;
+            }
+            //agr closed bracket ho
+            else{
+                if(open<=0){
+                    close++;
+                }
+                //pair mil gya
+                else{
+                    open--;
+                }
+            }
+        }
+        //general logic h minimum swap k liye
+        return ((close+1)/2);
+
+
+
+
+/*  WITH STACK*/
+Stack<Character> st = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            //open bracket ko stack me add kro
+            if(s.charAt(i)=='['){
+                st.push(s.charAt(i));
+            }
+            //closed bracket h to check kro stack k top pr kya h 
+            else{
+                //agr stack empty ho ya uske top pr closed bracket h to push kro closed bracket ko stack me 
+                if(st.isEmpty() || st.peek()==']'){
+                    st.push(s.charAt(i));
+                }
+                //agr stack k top per open bracket h to ek pair bn gya stack mese pop krdo
+                else{
+                    st.pop();
+                }
+            }
+        }
+        //since equal no. of opening and closing bracket h to divide by 2 se no. of opening ya no. of closing aa jayenge
+        int closedBracket = st.size()/2;
+
+        //general logic h minimum swap k liye
+        return ((closedBracket+1)/2);

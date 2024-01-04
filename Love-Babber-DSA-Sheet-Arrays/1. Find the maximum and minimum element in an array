@@ -1,0 +1,30 @@
+1. Find the maximum and minimum element in an array
+Test Case: N = 5
+           A[] = {-2, 1, -4, 5, 3}
+
+****Simple****
+ int min = Integer.MAX_VALUE;
+ int max = Integer.MIN_VALUE;
+ for(int i=0;i<N;i++){
+     if(A[i]<min) min = A[i];
+     if(A[i]> max) max = A[i];
+ }
+ return max+min;
+ 
+ 
+ ****OPTIMIZED(Minimum Comparasion)****
+ int min = A[0] , max = A[0] , i=0;                                             eg: {-2, 1, -4, 5, 3}
+        if(N%2 == 1) i=1;    //for odd elements                                      {1,4} is first pair ;
+        while(i<N-1){        //working in pairs                                      {5,3} is second pair 
+            if(A[i]<A[i+1]){          // {1,4} if left element is smaller                   
+                if(A[i]<min) min = A[i];
+                if(A[i+1]>max) max = A[i+1];
+            }
+            else{
+                //A[i]>A[i+1]       // {5,3} if right element is smaller
+                if(A[i]>max) max = A[i];
+                if(A[i+1]<min) min = A[i+1];
+            }
+            i = i+2;  //move by 2 to create pairs;
+        }
+        return min + max;

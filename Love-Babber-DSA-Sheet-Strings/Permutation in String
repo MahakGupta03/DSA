@@ -1,0 +1,59 @@
+
+/*OPTIMIZED*/
+
+    if(s1.length()>s2.length()) return false;
+    HashMap<Character, Integer> s1map = new HashMap<>();
+    for(int i=0;i<s1.length();i++){
+        s1map.put(s1.charAt(i),s1map.getOrDefault(s1.charAt(i),0)+1);
+    }
+    for(int i=0;i<=s2.length()-s1.length();i++){
+        HashMap<Character, Integer> s2map = new HashMap<>();
+        for(int j=0;j<s1.length();j++){
+            s2map.put(s2.charAt(i+j),s2map.getOrDefault(s2.charAt(i+j),0)+1);
+        }
+        if(match(s1map,s2map)) return true;
+        
+    }
+    return false;
+
+    public boolean match(HashMap<Character,Integer>s1map,HashMap<Character,Integer>s2map){
+        for(char key : s1map.keySet()){
+            if(s1map.get(key)-s2map.getOrDefault(key,-1)!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+/*NOT OPTIMIZED*/
+
+    List<String> list = new ArrayList<>();
+        permutations(s1,"",list,0); 
+        for(String str : list){
+            if(s2.contains(str)){
+                return true;
+            }
+        }
+        return false;
+
+public void permutations(String s, String ans, List<String>list,int i){
+        if(i>=s.length() && !list.contains(s)){
+            list.add(s);
+            return;
+        }
+        for(int j=i;j<s.length();j++){
+            s=swap(i,j,s);
+            permutations(s,ans,list,i+1);
+            s=swap(i,j,s);
+
+        }
+
+    }
+    public String swap(int i,int j,String s){
+        char ch[] = s.toCharArray();
+        char temp = ch[i];
+        ch[i]=ch[j];
+        ch[j] = temp;
+        return String.valueOf(ch);
+    }

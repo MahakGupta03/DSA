@@ -1,0 +1,62 @@
+public ListNode mergeNodes(ListNode head) {
+        
+        /*----MYSELF----*/
+        
+        if(head == null || head.next == null) return head;        
+        ListNode dummy = new ListNode(-1);
+        ListNode currD = dummy;
+        ListNode curr = head.next;
+         int sum = 0;
+        // while(curr != null){
+            // int sum = 0;
+            // while(curr.val!=0){
+            //     sum+=curr.val;
+            //     curr = curr.next;
+            // }
+            // ListNode temp = new ListNode(sum);
+            // currD.next = temp;
+            // currD=currD.next;
+            // curr = curr.next;
+            
+            if(curr.val == 0){
+                ListNode temp = new ListNode(sum);
+                currD.next = temp;
+                currD=currD.next;
+                curr = curr.next;
+                sum = 0;
+            }
+            else{
+                sum+=curr.val;
+                curr = curr.next;
+            }
+        }
+        
+        return dummy.next;
+        
+        
+        /*----STRIVER----*/
+        /* 1. not creating any extra list, insted we keep a start and p pointer.
+           2. start ponter will hold sum value between consicutive 0's.
+           3. p ponter wil continuously move. 
+        ListNode start = head;
+        ListNode p = head.next;
+        while(p!=null){
+            if(p.val!=0){  //if p is not zero
+                start.val+=p.val;
+            }
+            else
+            {    
+            //if p is at ending zero
+                if(p.next == null){
+                    start.next = null;
+                }
+                else{
+                    start.next = p;
+                }
+                //moving start
+                start = p;
+            }
+            p = p.next;
+        }
+        return head;
+    }

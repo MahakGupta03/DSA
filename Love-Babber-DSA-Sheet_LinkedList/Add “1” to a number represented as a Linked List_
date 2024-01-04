@@ -1,0 +1,39 @@
+//reverse function
+public static Node reverse(Node head){
+        Node prev = null;
+        Node curr = head;
+        while(curr!=null){
+            Node nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        return prev;
+    }
+    
+    //LL - 4->5->6
+    public static Node addOne(Node head) 
+    { 
+        //code here.
+        head = reverse(head);   //reverse linked list(4<-5<-6)
+        Node curr = head;
+        while(curr!=null){
+            if(curr.next==null && curr.data==9){    //eg:  LL is null<-9<-9<-9
+                curr.data = 1;                
+                Node temp = new Node(0);
+                temp.next = head;
+                head = temp;
+                curr = curr.next;
+            }
+            else if(curr.data==9){    //eg: 4<-5<-9
+                curr.data = 0;
+                curr = curr.next;
+            }
+            else{                   //eg: 4<-5<-6
+                curr.data+=1;
+                break;
+            }
+        }
+        head = reverse(head);   //bringing LL in orignal order
+        return head;
+    }

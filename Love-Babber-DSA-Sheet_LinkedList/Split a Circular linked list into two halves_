@@ -1,0 +1,42 @@
+ /*----BRUTE FORCE----*/
+             
+            //  Node curr = list.head;
+            //  Node fixed = list.head;
+            //  Node temp = list.head;
+            //  int size = 1;
+            //  while(curr.next!=fixed){
+            //      size++;
+            //      curr = curr.next;
+            //  }
+            //  int middle = 0;
+            //  if(size%2 ==0){
+            //      middle = size/2;
+            //  }else{
+            //      middle = (size/2) + 1;
+            //  }
+            //  int i=1;
+            //  while(i!=middle){
+            //      i++;
+            //      temp = temp.next;
+            //  }
+            //  list.head1 = fixed;
+            //  list.head2 = temp.next;
+            //  temp.next = list.head1;
+            //  curr.next = list.head2;
+            
+            
+            /*----OPTIMIZED----*/
+            
+            Node slow = list.head;
+            Node fast = list.head;
+            while(fast.next!=list.head && fast.next.next!=list.head){
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            list.head1 = list.head;
+            list.head2 = slow.next;
+            slow.next = list.head;
+            while(fast.next!=list.head){
+                fast = fast.next;
+            }
+            fast.next = list.head2;

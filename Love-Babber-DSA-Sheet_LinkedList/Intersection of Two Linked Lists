@@ -1,0 +1,54 @@
+  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        
+        /* ----BRUTE FORCE----*/
+        
+        // while(headA !=null){
+        //     ListNode temp = headB;
+        //     while(temp!=null){
+        //         if(headA==temp){
+        //             return headA;
+        //         }
+        //         temp = temp.next;
+        //     }
+        //     headA = headA.next;
+        // }
+        // return null;
+        
+        
+        /*----HASHING----*/
+        
+        // HashSet<ListNode> list = new HashSet<>();
+        // while(headA!=null){        
+        //     list.add(headA);       //adding nodes of first list in hash table.
+        //     headA = headA.next;
+        // }
+        // while(headB!=null){
+        //     if(list.contains(headB)) return headB;   //checking nodes of second list from hash table. 
+        //     headB = headB.next;                      //if node is already present in hash table then we found intersecting point and we return.
+        // }
+        // return null;               //if we does not found any intersecting ppoint then we return null.
+        
+        
+        /*----OPTIMIZED----*/
+        
+        ListNode l1 = headA;
+        ListNode l2 = headB;
+        while(l1!=l2){
+        
+       /* if(l1 == null){
+                l1 = headB;
+            }else{
+                l1 = l1.next;
+            }
+            if(l2 == null){               /*INTUTION: if l1 reaches at null then we assign it head of second list and similarly  
+                l2 = headA;                             if l2 reches to null then we assign l2 as head of second list*/
+            }else{
+                  l2 = l2.next;
+            }
+        */
+            l1 = l1==null?headB : l1.next;    //short hand code for if-else
+            l2 = l2==null?headA : l2.next;
+            
+        }
+        return l1;
+    }

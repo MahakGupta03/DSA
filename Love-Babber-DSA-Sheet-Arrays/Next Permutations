@@ -1,0 +1,93 @@
+//for explanation look for striver article (https://takeuforward.org/data-structure/next_permutation-find-next-lexicographically-greater-permutation/)
+
+/*-----GFG-------*/
+/*
+  TC-> O(3n)
+*/
+public static void reverse(int arr[],int start,int end){
+        while(start<=end){
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+    
+    public static void swap(int arr[],int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+    static List<Integer> nextPermutation(int N, int arr[]){
+        // code here
+        List<Integer> ans =  new ArrayList<>();
+        int idx = -1;
+        //for breakpoint
+        for(int i=N-2;i>=0;i--){
+            if(arr[i]<arr[i+1]){
+                idx = i;
+                break;
+            }
+        }
+        //if no breakpoint means it is last permutation and next permutation will be the first(means sorted)
+        if(idx==-1){
+            reverse(arr,0,N-1);
+            for(int i=0;i<arr.length;i++){
+                ans.add(arr[i]);
+            }
+            return ans;
+        }
+        
+        //find smallest number from back which is just larger than breakpoint i.e idx
+        for(int i=N-1;i>=idx;i--){
+            if(arr[i]>arr[idx]){
+                // Collections.swap(arr,i,idx);
+                swap(arr,i,idx);
+                break;
+            }
+        }
+        reverse(arr,idx+1,N-1);
+        for(int i=0;i<arr.length;i++){
+            ans.add(arr[i]);
+        }
+        return ans;
+    }
+
+/*-----LEETCODE------*/
+/*
+  TC-> O(3n)
+*/
+public void nextPermutation(int[] nums) {
+
+        int i = nums.length-2;
+        while(i>=0 && nums[i]>=nums[i+1]){
+            i--;
+        }
+        if(i>=0){
+            int j=nums.length-1;
+            while(nums[i]>=nums[j]){
+                j--;
+            }
+            swap(nums, i, j);
+        }
+        reverse(nums, i+1);
+    }
+
+    private void reverse(int[] nums, int start) {
+        int i = start, j = nums.length - 1;
+        while (i < j) {
+            swap(nums, i, j);
+            i++;
+            j--;
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+        
+    }
+

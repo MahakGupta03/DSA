@@ -1,0 +1,64 @@
+public static void removeLoop(Node head){
+        // code here
+        // remove the loop without losing any nodes
+        
+        /*----BRUTE FORCE----*/
+        
+        // HashSet<Node> st = new HashSet<>();
+        // Node curr = head;
+        // Node prev = null;
+        // while(curr!=null){
+        //     if(st.contains(curr)){
+        //         prev.next = null;
+        //         break;
+        //     }
+        //     st.add(curr);
+        //     prev = curr;
+        //     curr = curr.next;
+        
+        /*----MYSELF(OPTIMIZED)----*/
+              
+        // Node slow = head;
+        // Node fast = head;
+        // Node entry = head;
+        // while(fast.next!=null && fast.next.next!=null){
+        //     slow = slow.next;
+        //     fast = fast.next.next;
+        //     if(slow == fast){
+        //         while(slow!=entry){
+        //             slow = slow.next;
+        //             entry = entry.next;
+        //         }
+        //         while(fast.next!=entry){
+        //             fast = fast.next;
+        //         }
+        //         fast.next = null;
+        //     }
+        // }
+        
+        /*----OPTIMIZED----*/
+        
+        Node slow = head;
+        Node fast = head;
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) break;
+        }
+        if(slow == head){
+            while(fast.next!=slow){
+                fast = fast.next;
+            }
+            fast.next = null;
+        }
+        else if(slow==fast){
+            slow = head;
+            while(slow.next!=fast.next){
+                slow = slow.next;
+                fast = fast.next;
+            }
+            fast.next = null;
+        }
+        
+        
+    }

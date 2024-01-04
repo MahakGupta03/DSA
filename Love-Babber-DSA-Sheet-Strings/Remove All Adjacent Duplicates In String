@@ -1,0 +1,34 @@
+ //stringbuilder ko stack consider krke check kro agar current element sb k last element k equal h to sb mese delete kro verna add kro sb me.
+        /* 
+            TC-> O(n)
+            SC-> O(n)
+         */
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray()){
+            int size = sb.length();
+            if(size>0 && sb.charAt(size-1)==c){
+                sb.deleteCharAt(size-1);
+            }
+            else{
+                sb.append(c);
+            }
+        }
+
+        return sb.toString();
+
+
+        /*Time Limit Exceeded*/
+
+        // StringBuilder sb = new StringBuilder(s);
+        // int i=0;
+        // while(i<sb.length()-1){
+        //     int j=i+1;
+
+        //     if(sb.charAt(i)==sb.charAt(j)){
+        //         sb.delete(i,j+1);
+        //         i=0;
+        //     }
+        //     else{
+        //         i++;
+        //     }
+        // }

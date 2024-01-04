@@ -1,0 +1,30 @@
+ public ListNode deleteDuplicates(ListNode head) {
+        
+        /*----ITERATIVE----*/
+        
+        // ListNode currNode = head;
+        // while(currNode!=null){
+        //     ListNode currNext = currNode.next;
+        //     if(currNext == null){
+        //         break;
+        //     }
+        //     if(currNode.val == currNext.val){
+        //         currNode.next = currNext.next;
+        //     }
+        //     else{currNode = currNode.next;}
+        // }
+        // return head;
+        
+        
+        /*----RECURSIVE----*/
+        
+        if(head == null || head.next == null) return head;
+        ListNode newHead = deleteDuplicates(head.next);
+        if(head.val == newHead.val){
+            return newHead;
+        }else
+        {
+            head.next = newHead;
+        return head;
+        }
+    }

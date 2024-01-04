@@ -1,0 +1,28 @@
+/*
+  TC-> O(nlogn), naive sort is o(nlogn)
+  SC-> O(n), for map and list
+*/
+
+//Map me sare value add krke unki frequency nikal lenge fir unko sort kr denge comparator k through
+
+        Map<String,Integer> map = new HashMap<>();
+        for(String s : words){
+            map.put(s,map.getOrDefault(s,0)+1);
+        }
+        List<Map.Entry<String,Integer>> list = new ArrayList(map.entrySet());
+
+        //comparator me apn check krenge ...agr dono ki frequency same nhi h to unki frequency k respect me sort krenge or agr same h to String k according sort krenge
+        Collections.sort(list,new Comparator<Map.Entry<String,Integer>>(){
+            public int compare (Map.Entry<String,Integer>a,Map.Entry<String,Integer>b){
+                if(a.getValue()!=b.getValue()){
+                    return b.getValue()-a.getValue();
+                }else{
+                    return a.getKey().compareTo(b.getKey());
+                }
+            }
+        });
+        List<String> res = new ArrayList<>();
+        for(int i=0;i<k;i++){
+            res.add(list.get(i).getKey());
+        }
+        return res;

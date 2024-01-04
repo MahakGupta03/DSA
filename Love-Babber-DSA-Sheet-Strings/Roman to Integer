@@ -1,0 +1,24 @@
+/*
+  TC-> O(n)
+  SC-> O(1) : only using map for storing the roman letters
+*/
+
+//check from back if we get smaller value before larget value we subtract it elese add 
+        Map<Character, Integer> m = new HashMap<>();
+        m.put('I',1);
+        m.put('V', 5);
+        m.put('X', 10);
+        m.put('L', 50);
+        m.put('C', 100);
+        m.put('D', 500);
+        m.put('M', 1000);
+        //adding first value from back becoz first value is always added
+        int ans=m.get(s.charAt(s.length()-1));
+        for(int i=s.length()-2;i>=0;i--){
+            if(m.get(s.charAt(i))<m.get(s.charAt(i+1))){
+                ans-=m.get(s.charAt(i));
+            }else{
+                ans+=m.get(s.charAt(i));
+            }
+        }
+        return ans;

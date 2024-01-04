@@ -1,0 +1,67 @@
+/*
+  que1: You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+        Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+        The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements          denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+*/
+
+public void merge(int[] nums1, int m, int[] nums2, int n) {
+      /*-------Brute Force---------*/
+
+        // for(int i=0;i<n;i++){
+        //     nums1[m+i] = nums2[i];
+        // }
+        // Arrays.sort(nums1);
+
+/* ----------optimal apporach-----------------
+  TC-> O(n+m)
+  SC-> O(1)
+*/
+        int p1 = m-1;
+        int p2 = n-1;
+        int i = m+n-1;
+        while(p2>=0){
+            if(p1>=0 && nums1[p1]>nums2[p2]){
+                nums1[i] = nums1[p1];
+                i--;
+                p1--;
+            }else{
+                nums1[i] = nums2[p2];
+                i--;
+                p2--;
+            }
+        }
+    }
+
+/* IMP QUESTION
+  que2:  Given two sorted arrays arr1[] and arr2[] of sizes n and m in non-decreasing order. Merge them in sorted order. Modify arr1 so that it contains the first N elements and modify arr2            so that it contains the last M elements.
+*/
+
+/*
+  TC-> O(min(n, m)) + O(n*logn) + O(m*logm), where n and m are the sizes of the given arrays.
+      Reason: O(min(n, m)) is for swapping the array elements. And O(n*logn) and O(m*logm) are for sorting the two
+  SC-> O(1) as we are not using any extra space.
+*/
+  public static void merge(long[] arr1, long[] arr2, int n, int m) {
+  
+          // Declare 2 pointers:
+          int left = n - 1;
+          int right = 0;
+  
+          // Swap the elements until arr1[left] is
+          // smaller than arr2[right]:
+          while (left >= 0 && right < m) {
+              if (arr1[left] > arr2[right]) {
+                  long temp = arr1[left];
+                  arr1[left] = arr2[right];
+                  arr2[right] = temp;
+                  left--;
+                  right++;
+              } else {
+                  break;
+              }
+          }
+  
+          // Sort arr1[] and arr2[] individually:
+          Arrays.sort(arr1);
+          Arrays.sort(arr2);
+      }

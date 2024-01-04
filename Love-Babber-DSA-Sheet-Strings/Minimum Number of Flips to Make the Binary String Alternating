@@ -1,0 +1,29 @@
+
+
+        int n = s.length();
+        StringBuilder sb = new StringBuilder(s).append(s);
+        StringBuilder seq1 = new StringBuilder();
+        StringBuilder seq2 = new StringBuilder();
+        for(int i=0;i<sb.length();i++){
+            if(i%2==0){
+                seq1.append(0);
+                seq2.append(1);
+            }else{
+                seq1.append(1);
+                seq2.append(0);
+            }
+        }
+
+        int diff1=0,diff2=0,ans=Integer.MAX_VALUE;
+        for(int i=0;i<sb.length();i++){
+            if(sb.charAt(i)!=seq1.charAt(i)) diff1++;
+            if(sb.charAt(i)!=seq2.charAt(i)) diff2++;
+            if(i>=n){
+                if(sb.charAt(i-n)!=seq1.charAt(i-n)) diff1--;
+                if(sb.charAt(i-n)!=seq2.charAt(i-n)) diff2--;
+            }
+            if(i>=n-1){
+                ans = Math.min(ans,Math.min(diff1,diff2));
+            }
+        }
+        return ans;

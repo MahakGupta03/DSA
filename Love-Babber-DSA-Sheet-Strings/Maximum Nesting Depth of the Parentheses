@@ -1,0 +1,32 @@
+
+/* WITH OPEN POINTER */
+//open bracket aaye to open++ krte raho or closed bracket aaye to open--, or hr open bracket pr check kro ki max depty kitni h  
+        int max = 0, open=0;
+        for(char c : s.toCharArray()){
+            if(c=='('){
+                open++;
+                max = Math.max(max,open);
+            }
+            else if(c==')'){
+                    open--;
+            }
+        }
+        return max;
+
+
+  /* WITH STACK */
+        // Stack<Character> st = new Stack<>();
+        // int max = 0;
+        // for(char c : s.toCharArray()){
+        //     if(c=='('){
+        //         st.push(c);
+        //         max = Math.max(max,st.size());
+        //     }
+        //     else{
+        //         if(c==')'){
+        //             st.pop();
+        //             max = Math.max(max,st.size());
+        //         }
+        //     }
+        // }
+        // return max;

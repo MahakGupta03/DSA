@@ -1,0 +1,29 @@
+public ListNode removeElements(ListNode head, int val) {
+        
+        /*----ITERATIVE----*/
+//         if(head == null) return head;
+//         ListNode dummyH = new ListNode(-1);
+//         dummyH.next = head;
+//         ListNode curr = dummyH;
+//         while(curr.next != null){
+//             if(curr.next.val == val){
+//                 curr.next = curr.next.next;
+//             }
+//             else{
+//                 curr = curr.next;
+//             }
+//         }
+//         return dummyH.next;
+        
+        
+        /*----RECURSIVE----*/
+        
+        if(head == null) return head;
+        ListNode newHead = removeElements(head.next , val);
+        head.next = newHead;
+        if(head.val == val){
+            return newHead;
+        }
+        return head;
+        
+    }

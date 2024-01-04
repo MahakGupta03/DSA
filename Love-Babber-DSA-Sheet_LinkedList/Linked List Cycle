@@ -1,0 +1,44 @@
+ public boolean hasCycle(ListNode head) {
+        
+        /*----BRUTE FORCE(HASHING)----*/
+        
+        // HashSet<ListNode> list = new HashSet<>();
+        // ListNode dummy = head;
+        // while(dummy!=null){
+        //     if(list.contains(dummy)) return true;
+        //     list.add(dummy);
+        //     dummy = dummy.next;
+        // }
+        // return false;
+        
+        
+         /*----MYSELF----*/
+        
+//         ListNode slow = head;
+//         ListNode fast = head;
+//         if(head == null || head.next==null) return false;
+//         do
+//         {
+//             if(fast == null || fast.next == null) return false;
+//             slow = slow.next;
+//             fast = fast.next.next;
+//         } while(slow!=fast);
+       
+//         return true;
+        
+        
+         /*----OPTIMIZED----*/
+        
+        ListNode slow = head;
+        ListNode fast = head;
+        if(head == null || head.next==null) return false;
+        while(fast.next!=null && fast.next.next!=null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) return true;
+        } 
+       
+        return false;
+        
+    }

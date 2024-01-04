@@ -1,0 +1,58 @@
+public static int doUnion(int a[], int n, int b[], int m) 
+    {
+        /*---------USING SET----------*/
+        /*  O( (m+n)log(m+n) ) . Inserting an element in a set takes logN time, where N is no of elements in the set. At max set can store m+n elements {when there are no common elements and elements in arr,arr2  
+            are distntict}.So Inserting m+n th element takes log(m+n) time. Upon approximation across inserting all elements in worst, it would take O((m+n)log(m+n) time
+        */
+        // HashSet<Integer> set = new HashSet<>();
+        // for(int i=0;i<n;i++){
+        //     set.add(a[i]);
+        // }
+        // for(int i=0;i<m;i++){
+        //     set.add(b[i]);
+        // }
+        // return set.size();
+
+
+      /*----------USING TWO POINTERS--------------*/
+      /*
+        TC-> O(m+n), Because at max i runs for n times and j runs for m times. When there are no common elements in arr1 and arr2 and all elements in arr1, arr2 are distinct.
+        SC-> O(m+n) {If Space of Union ArrayList is considered} 
+      */  
+        Arrays.sort(a);
+        Arrays.sort(b);
+        ArrayList<Integer> result = new ArrayList<>();
+        int i=0,j=0;
+        while(i<n && j<m){
+            if(a[i]<=b[j]){
+                if(result.size()==0 || result.get(result.size()-1)!=a[i]){
+                    result.add(a[i]);
+                }
+                i++;
+            }
+            else{
+                if(result.size()==0 || result.get(result.size()-1)!=b[j]){
+                    result.add(b[j]);
+                }
+                j++;
+            }
+        }
+        while(i<n){
+            if(result.get(result.size()-1)!=a[i]){
+                    result.add(a[i]);
+                }
+                i++;
+        }
+        while(j<m){
+            if(result.get(result.size()-1)!=b[j]){
+                    result.add(b[j]);
+                }
+                j++;
+        }
+        return result.size();
+        
+        
+        
+        
+       
+    }
