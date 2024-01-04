@@ -1,0 +1,53 @@
+/*----------OPTIMIZED-----------*/
+/*
+  TC-> O(mn)
+*/
+public int numberOfBeams(String[] bank) {
+    int laser = 0, prev=0, count = 0;
+        for(String s : bank){
+            count =0;
+            for(int i=0;i<s.length();i++){
+                if(s.charAt(i)=='1') count++;
+            }
+            if(count>0){
+                laser+=prev*count;
+                prev=count;
+            }
+
+        }
+        return laser;
+}
+
+/*---------MINE---------------*/
+/*
+  TC->O((n-1) * n * m)
+  SC-> The countChar function uses O(m) extra space to store the character array.
+*/
+public static int countChar(String s){  //O(m)
+        int count = 0;
+        char str[] = s.toCharArray();
+        for(int i=0;i<str.length;i++){ 
+            if(str[i]=='1'){
+                count++;
+            }
+        }
+        return count;
+    }
+    public int numberOfBeams(String[] bank) {
+        int laser = 0;
+        int n = bank.length;
+        for(int i=0;i<n-1;i++){  //O(n-1)
+            if(bank[i].contains("1")){
+                int counti = countChar(bank[i]);
+                for(int j=i+1;j<n;j++){  //O(n)
+                    if(bank[j].contains("1")){  
+                        int countj=countChar(bank[j]);
+                        laser+=(counti*countj);
+                        break;
+                    }
+                }
+            }
+        }
+        return laser;
+        
+    }
