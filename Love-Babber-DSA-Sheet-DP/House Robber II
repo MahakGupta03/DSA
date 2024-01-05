@@ -1,0 +1,58 @@
+/*MEMOIZATION*/
+public int f(int idx, ArrayList<Integer> nums ,int dp[]){
+        if(idx==0) return nums.get(idx);
+        if(idx<0) return 0;
+        if(dp[idx]!=-1) return dp[idx];
+        int pick = nums.get(idx) + f(idx-2, nums,dp);
+        int notpick = 0+f(idx-1, nums,dp);
+        return dp[idx]=Math.max(pick, notpick); 
+    }
+
+public int rob(int[] nums) {
+        int n = nums.length;
+        if(n==1) return nums[0];
+        int dp1[] = new int[n];
+        int dp2[] = new int [n];
+        Arrays.fill(dp1,-1);
+        Arrays.fill(dp2,-1);
+        ArrayList<Integer> arr1 = new ArrayList<>();
+        ArrayList<Integer> arr2 = new ArrayList<>();
+
+        for(int i=0;i<n;i++){
+            if(i!=0) arr1.add(nums[i]);
+            if(i!=n-1) arr2.add(nums[i]);
+        }
+        return Math.max(f(arr1.size()-1,arr1,dp1),f(arr2.size()-1,arr2,dp2));
+        
+    }
+
+
+/*TABULATION*/
+public int f(ArrayList<Integer> nums){
+        if(nums.size()<2) return nums.get(0);
+        int dp[] = new int[nums.size()];
+        dp[0] = nums.get(0);
+        dp[1] = Math.max(nums.get(0),nums.get(1));
+        for(int i=2;i<nums.size();i++){
+            int pick = nums.get(i) + dp[i-2];
+            int notpick = dp[i-1];
+            dp[i]=Math.max(pick, notpick); 
+        }
+        return dp[dp.length-1];
+
+        
+    }
+
+public int rob(int[] nums) {
+        int n = nums.length;
+        if(n<2) return nums[0];
+        ArrayList<Integer> arr1 = new ArrayList<>();
+        ArrayList<Integer> arr2 = new ArrayList<>();
+
+        for(int i=0;i<n;i++){
+            if(i!=0) arr1.add(nums[i]);
+            if(i!=n-1) arr2.add(nums[i]);
+        }
+        return Math.max(f(arr1),f(arr2));
+        
+    }
