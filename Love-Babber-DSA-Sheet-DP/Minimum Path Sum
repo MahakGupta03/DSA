@@ -1,0 +1,22 @@
+/* MEMOIZATION(TOP-DOWN) 
+        TC->O(M*N)
+        SC-> O((N-1)+(M-1)) + O(M*N)
+*/
+public int maxSum(int i, int j, int grid[][], int dp[][]){
+        if(i==0 && j==0) return grid[0][0];
+        if(i<0 || j< 0) return (int) Math.pow(10, 9);
+        if(dp[i][j]!=-1) return dp[i][j];
+        int upSum = grid[i][j]+ maxSum(i-1,j,grid,dp);
+        int leftSum = grid[i][j] + maxSum(i,j-1,grid,dp);
+        return dp[i][j] = Math.min(upSum,leftSum);
+    }
+
+    public int minPathSum(int[][] grid) {
+        int n=grid.length;
+        int m = grid[0].length;
+        int dp[][] = new int[n][m];
+        for(int row[] : dp){
+            Arrays.fill(row,-1);
+        }
+        return maxSum(n-1,m-1,grid,dp);
+    }
