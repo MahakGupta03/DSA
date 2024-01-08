@@ -1,0 +1,52 @@
+/*MEMOIZATION*/
+/*
+  TC-> O(N*K)
+  SC-> O(N*K) + O(N)
+*/
+public static boolean func(int i, int target,int arr[],int dp[][]){
+        if(target==0) return true;
+        if(i==0) return (arr[i]==target);
+        if(dp[i][target]!=-1) {
+            return dp[i][target]==1 ? true : false;
+        }
+        boolean notTake = func(i-1,target,arr,dp);
+        boolean take = false;
+        if(arr[i]<=target) take = func(i-1,target-arr[i],arr,dp);
+        dp[i][target] = take || notTake ? 1 : 0;
+        return take || notTake;
+    }
+
+    static Boolean isSubsetSum(int N, int arr[], int sum){
+        // code here
+        int dp[][] = new int[N][sum+1];
+        for(int row[] : dp){
+            Arrays.fill(row,-1);
+        }
+        return func(N-1,sum,arr,dp)
+}
+
+
+/*TABULATION*/
+/*
+  TC-> O(N*K)
+  SC-> O(N*K)
+*/
+static Boolean isSubsetSum(int N, int arr[], int sum){
+        
+        boolean dp[][] = new boolean[N][sum+1];
+        for(int i=0;i<N;i++){
+            dp[i][0] = true;
+        }
+        if (arr[0] <= sum) {
+            dp[0][arr[0]] = true;
+        }
+        for(int idx = 1;idx<N;idx++){
+            for(int target=1;target<=sum;target++){
+                boolean notTake = dp[idx-1][target];
+                boolean take = false;
+                if(arr[idx]<=target) take = dp[idx-1][target-arr[idx]];
+                dp[idx][target] = take || notTake;
+            }
+        }
+        return dp[N-1][sum];
+    }
