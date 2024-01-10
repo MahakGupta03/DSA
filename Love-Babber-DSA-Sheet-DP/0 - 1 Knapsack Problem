@@ -1,0 +1,55 @@
+/*MEMOIZATION*/
+/*
+  TC-> O(N*W)
+  SC-> O(N*W) + O(N)
+*/
+public static int maxValue(int i, int W, int wt[], int val[],int dp[][]){
+        if(i==0){
+            if(wt[0]<=W) return val[0];
+            else return 0;
+        }
+        if(dp[i][W]!=-1) return dp[i][W];
+        int notTake = 0+maxValue(i-1,W,wt,val,dp);
+        int take = Integer.MIN_VALUE;
+        if(wt[i]<=W){
+            take = val[i] + maxValue(i-1,W-wt[i],wt,val,dp);
+        }
+        
+        return dp[i][W] = Math.max(take,notTake);
+    }    
+    
+    static int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        int dp[][] = new int[n][W+1];
+        for(int row[] : dp){
+            Arrays.fill(row,-1);
+        }
+        return maxValue(n-1,W,wt,val,dp);
+        
+      }
+
+
+/*TABULATION*/
+/*
+  TC-> O(N*W)
+  SC-> O(N*W)
+*/
+public static int maxValue(int i, int W, int wt[], int val[],int dp[][]){
+        int dp[][] = new int[n][W+1];
+        for(int i=wt[0];i<=W;i++){
+            dp[0][i] = val[0];
+        }
+        
+        for(int i=1;i<n;i++){
+            for(int w=0;w<=W;w++){
+                int notTake = 0+dp[i-1][w];
+                int take = Integer.MIN_VALUE;
+                if(wt[i]<=w){
+                    take = val[i] + dp[i-1][w-wt[i]];
+                }
+                
+                dp[i][w] = Math.max(take,notTake);
+            }
+        }
+        return dp[n-1][W];
+    } 
