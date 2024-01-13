@@ -1,0 +1,53 @@
+/*RECURSION*/
+public int sumWays(int i,int sum, int target, int nums[]){
+        if(i<0){
+            if(sum==target) return 1;
+            else return 0;
+        }
+        int minus = sumWays(i-1,sum+nums[i],target,nums);
+        int plus = sumWays(i-1,sum+(-nums[i]),target,nums);
+        return minus+plus;
+}
+
+public int findTargetSumWays(int[] nums, int target) {
+        int n = nums.length;
+        return sumWays(n-1,0, target, nums);
+}
+
+
+/*SAME AS PARTITION WITH GIVEN DIFFERENCE*/
+public int findWays(int i, int k, int arr[],int dp[][]){
+        if(i == 0){
+            if(k==0 && arr[0]==0)
+                return 2;
+            if(k==0 || k == arr[0])
+                return 1;
+            return 0;
+    }
+        if(dp[i][k]!=-1) return dp[i][k];
+        int notTake = findWays(i-1,k,arr,dp);
+        int take = 0;
+        if(arr[i]<=k){
+            take = findWays(i-1,k-arr[i],arr,dp);
+        }
+        return dp[i][k]=(take+notTake);
+    }
+
+    public int countPartitions(int n, int d, int arr[]){
+        int totalSum = 0;
+        for(int i=0;i<n;i++){
+            totalSum+=arr[i];
+        }
+        if(totalSum-d<0 || (totalSum-d)%2!=0) return 0;
+        int s2 = (totalSum-d)/2;
+        int dp[][] = new int[n][s2+1];
+        for(int row[] : dp){
+            Arrays.fill(row,-1);
+        }
+        return findWays(n-1,s2,arr,dp);
+    }
+
+    public int findTargetSumWays(int[] nums, int target) {
+        int n = nums.length;
+        return countPartitions(n,target,nums);
+    }
