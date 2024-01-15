@@ -1,0 +1,25 @@
+/*get the longest palindrome sunsequence length ans subtract it from total length of string to get the number of insertion*/
+/*this is because we only need to add values which are not in palindrome*/
+
+public int maxCount(int i, int j, String str,String rev,int dp[][]){
+        if(i<0 || j<0) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(str.charAt(i)==rev.charAt(j)){
+            return dp[i][j] = 1 + maxCount(i-1,j-1,str,rev,dp);
+        }
+        return dp[i][j] = Math.max(maxCount(i-1,j,str,rev,dp),maxCount(i,j-1,str,rev,dp));
+    }
+
+    public int minInsertions(String s) {
+        int n = s.length();
+        int dp[][] = new int[n][n];
+        for(int row[] : dp){
+            Arrays.fill(row,-1);
+        }
+        StringBuilder rev = new StringBuilder();
+        rev.append(s);
+        String rev2 = rev.reverse().toString();
+        int max = maxCount(n-1,n-1,s,rev2,dp);
+
+        return n-max;
+    }
