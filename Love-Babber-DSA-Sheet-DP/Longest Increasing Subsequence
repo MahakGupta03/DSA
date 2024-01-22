@@ -1,0 +1,49 @@
+/*MEMOIZATION*/
+/*
+  TC-> O(N*N)
+  SC-> O(N*N) + O(N)
+*/
+public int func(int curr, int prev ,int nums[], int dp[][]){
+        if(curr==nums.length) return 0;
+        if(dp[curr][prev+1]!=-1) return dp[curr][prev+1];
+        int pick=0, notPick=0;
+        if(prev==-1 || nums[curr]>nums[prev]){
+            pick = 1 + func(curr+1,curr,nums,dp);
+        }
+        notPick = 0 + func(curr+1,prev,nums,dp);
+        return dp[curr][prev+1] = Math.max(pick,notPick);
+    }
+
+/*TABULATION*/
+/*
+  TC-> O(N*N)
+  SC-> O(N*N)
+*/
+    public int func(int nums[],int dp[][]){
+
+        for(int curr=nums.length-1; curr>=0; curr--){
+            for(int prev = curr-1; prev>=-1;prev--){
+                int notPick = 0 + dp[curr+1][prev+1];
+                int pick = 0;
+                if(prev==-1 || nums[curr]>nums[prev]){
+                    pick = 1 + dp[curr+1][curr+1];
+                }
+                
+                dp[curr][prev+1] = Math.max(pick,notPick);
+            }
+            
+        } 
+        return dp[0][0];
+    }
+
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        // int dp[][] = new int[n][n+1];
+        int dp[][] = new int[n+1][n+1];
+        // for(int row[] : dp){
+        //     Arrays.fill(row,-1);
+        // }
+        // return func(0,-1,nums,dp);
+        return func(nums,dp);
+
+    }
