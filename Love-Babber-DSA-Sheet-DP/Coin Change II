@@ -1,0 +1,45 @@
+/*MEMOIZATION*/
+public int func(int i, int target, int arr[], int dp[][]){
+        if(i<0) return 0;
+        if(target==0) return 1;
+        if(dp[i][target]!=-1) return dp[i][target];
+        int notTake = func(i-1, target, arr,dp);
+        int take=0;
+        if(arr[i]<=target){
+            take = func(i, target-arr[i],arr,dp);
+        }
+        return dp[i][target] = take+notTake;
+    }
+
+/*TABULATION*/
+    public int func(int T, int arr[], int dp[][]){
+        int n = arr.length;
+        for (int i = 0; i <= T; i++) {
+            if (i % arr[0] == 0)
+                dp[0][i] = 1;
+
+        }
+
+        for (int ind = 1; ind < n; ind++) {
+            for (int target = 0; target <= T; target++) {
+                int notTaken = dp[ind - 1][target];
+
+                int taken = 0;
+                if (arr[ind] <= target)
+                    taken = dp[ind][target - arr[ind]];
+
+                dp[ind][target] = notTaken + taken;
+            }
+        }
+        return dp[n - 1][T];
+    }
+
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        int dp[][] = new int[n][amount+1];
+        // for(int row[] : dp){
+        //     Arrays.fill(row,-1);
+        // }
+        // return func(n,amount,coins,dp);
+        return func(amount,coins,dp);
+    }
