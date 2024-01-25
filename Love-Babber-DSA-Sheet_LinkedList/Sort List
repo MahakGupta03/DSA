@@ -1,0 +1,70 @@
+/*BRUTE FORCE*/
+/*
+  TC-> O(N) + O(nlogn) + O(N)
+  SC-> O(N)
+*/
+public ListNode sortList(ListNode head) {
+        if (head==null || head.next==null) return head;
+        ArrayList<Integer> list = new ArrayList<>();
+        ListNode temp = head;
+        while(temp!=null){
+            list.add(temp.val);
+            temp = temp.next;
+        }
+        Collections.sort(list);
+        temp = head;
+        int i=0;
+        while(temp!=null){
+            temp.val = list.get(i);
+            temp = temp.next;
+            i++;
+        }
+        return head;
+}
+
+/*OPTIMIZED*/
+/*
+  TC->O(logn+(n+n/2))  [n/2 is to find middle]
+*/
+
+public ListNode middle(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public ListNode merge(ListNode list1, ListNode list2){
+        ListNode dummy = new ListNode(-1);
+        ListNode temp = dummy;
+        while(list1!=null && list2!=null){
+            if(list1.val<list2.val){
+                temp.next = list1;
+                temp=temp.next;
+                list1=list1.next;
+            }else{
+                temp.next = list2;
+                temp=temp.next;
+                list2=list2.next;
+            }
+        }
+        if(list1!=null) temp.next = list1;
+        else temp.next = list2;
+        return dummy.next;
+    }
+
+
+    public ListNode sortList(ListNode head) {
+        if (head==null || head.next==null) return head;
+        ListNode mid = middle(head);
+        ListNode leftHead = head;
+        ListNode rightHead = mid.next;
+        mid.next = null;
+        leftHead = sortList(leftHead);
+        rightHead = sortList(rightHead);
+        return merge(leftHead, rightHead);
+        
+    }
