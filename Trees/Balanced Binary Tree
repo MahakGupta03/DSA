@@ -1,0 +1,47 @@
+/*BRUTE FORCE*/
+/*
+  TC->O(N*N) 
+  SC-> O(1) ( Extra Space ) + O(H) ( Recursive Stack Space where “H” is the height of tree )
+*/
+public int maxHeight(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int countLeft=0,countRight=0;
+        countLeft =Math.max(countLeft, 1 + maxHeight(root.left));
+        countRight =Math.max(countRight, 1 + maxHeight(root.right));
+        return Math.max(countLeft, countRight);
+    }
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        int left = maxHeight(root.left);
+        int right = maxHeight(root.right);
+        int ans = Math.abs(left-right);
+        if(ans>1) return false;
+        boolean checkLeft = isBalanced(root.left);
+        boolean checkRight = isBalanced(root.right);
+        if(checkLeft==false || checkRight==false) return false;
+        return true;
+    }
+
+/*OPTIMIZED*/
+/*
+  TC->O(N) 
+  SC-> O(1) ( Extra Space ) + O(H) ( Recursive Stack Space where “H” is the height of tree )
+*/
+public int maxHeight(TreeNode root){
+        if(root==null){
+            return 0;
+        }
+        int countLeft =maxHeight(root.left);
+        if(countLeft==-1) return -1;
+        int countRight =maxHeight(root.right);
+        if(countRight==-1) return -1;
+        if(Math.abs(countLeft - countRight)>1) return -1;
+        //+1 for the root node
+        return Math.max(countLeft, countRight)+1;
+    }
+    public boolean isBalanced(TreeNode root) {
+        int ans = maxHeight(root);
+        return (ans!=-1) ? true : false;
+    }
