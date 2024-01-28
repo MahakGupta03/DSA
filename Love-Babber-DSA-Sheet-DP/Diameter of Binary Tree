@@ -1,0 +1,21 @@
+/*
+  TC-> O(N) 
+  SC-> 0(1) + O(H)
+*/
+public int maxHeight(TreeNode root, int diameter[]){
+        if(root==null){
+            return 0;
+        }
+        int countLeft =maxHeight(root.left,diameter);
+        int countRight =maxHeight(root.right,diameter);
+        diameter[0] = Math.max(diameter[0],countLeft+countRight);
+        //+1 for the root node
+        return Math.max(countLeft, countRight)+1;
+    }
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        //since variables are not passed as referance so we have created an array of size 1;
+        int diameter[] = new int[1];
+        maxHeight(root, diameter);
+        return diameter[0];
+    }
