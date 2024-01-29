@@ -1,0 +1,25 @@
+/*
+  TC-> O(N) + O(2E), Where N = Nodes, 2E is for total degrees as we traverse all adjacent nodes.4
+  SC-> O(3N) ~ O(N), Space for queue data structure visited array and an adjacency list
+*/
+public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        Queue<Integer> q = new LinkedList<>();
+        boolean vis[] = new boolean[V];
+        vis[0] = true;
+        q.add(0);
+        ArrayList<Integer> bfs = new ArrayList<>();
+        while(!q.isEmpty()){
+            int node = q.remove();
+            bfs.add(node);
+            //checking for each neighbour node of every node if not visited then add into queue and mark as visited
+            for(int i : adj.get(node)){
+                if(vis[i]==false){
+                    q.add(i);
+                    vis[i] = true;
+                }
+                
+            }
+            
+        }
+        return bfs;
+    }
