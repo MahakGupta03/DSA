@@ -1,0 +1,20 @@
+/*
+  TC->  For an undirected graph, O(N) + O(2E), For a directed graph, O(N) + O(E)
+  SC-> O(3N) ~ O(N)
+*/
+public void dfs(int node, ArrayList<Integer> list, boolean vis[], ArrayList<ArrayList<Integer>> adj ){
+        vis[node] = true;
+        list.add(node);
+        for(int i : adj.get(node)){
+            if(vis[i]==false){
+                dfs(i,list,vis,adj);
+            }
+        }
+    }
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        ArrayList<Integer> list = new ArrayList<>();
+        boolean vis[] = new boolean[V];
+        dfs(0,list,vis,adj);
+        return list;
+    }
