@@ -1,0 +1,56 @@
+/*
+  TC->  O(N) + O(V+2E)
+  SC-> O(N) + O(N),Space for recursion stack space and visited array.
+*/
+
+/* this code is when you use adjacency lost */
+    // public void dfs(int node, boolean vis[], ArrayList<ArrayList<Integer>> adj){
+    //     vis[node] = true;
+    //     for(Integer i : adj.get(node)){
+    //         if(vis[i]==false){
+    //             // vis[arr[node][i]]=true;
+    //             dfs(i,vis,adj);
+    //         }
+    //     }
+    // }
+
+
+    public void dfs(int node, boolean vis[], int arr[][]){
+        for(int i=0;i<arr.length;i++){
+            if(arr[node][i]==1 && vis[i]==false){
+                vis[i]=true;
+                dfs(i,vis,arr);
+            }
+        }
+    }
+
+    public int findCircleNum(int[][] isConnected) {
+        int v = isConnected.length;
+        /* this code is to change matrix to adjancency list */
+        // ArrayList<ArrayList<Integer>> adjls = new ArrayList<>();
+        // for(int i=0;i<v;i++){
+        //     adjls.add(new ArrayList<Integer>());
+        // }
+        // for(int i=0;i<v;i++){
+        //     for(int j=0;j<v;j++){
+        //         if(isConnected[i][j]==1 && i!=j){
+        //             adjls.get(i).add(j);
+        //             adjls.get(j).add(i);
+        //         }
+        //     }
+        // }
+
+
+        boolean vis[] = new boolean[v];
+        int count = 0;
+        //this loop only takes starting node of each component of a graph
+        for(int i=0;i<v;i++){
+            if(vis[i]==false){
+                count++;
+                // dfs(i,vis,adjls);
+                dfs(i,vis,isConnected);
+            }
+        }
+        return count;
+        
+    }
