@@ -1,0 +1,110 @@
+//------DFS------
+    public void dfs(int row, int col, int grid[][], int delrow[], int delcol[], int n, int m){
+        //converting all boundary 1 to 2
+        grid[row][col]=2;
+        for(int i=0;i<4;i++){
+            int nrow=row+delrow[i];
+            int ncol=col+delcol[i];
+            
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m  && grid[nrow][ncol]==1){
+                dfs(nrow, ncol,  grid, delrow,delcol, n , m);
+            }
+        }
+    }
+
+// same as surrounded regions just instead of vis array we did it by replaing boundary 1 by 2 and at last again replacing 2 with 1
+    public int numEnclaves(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int delrow[] = {-1,0,1,0};
+        int delcol[] = {0,+1,0,-1};
+
+        for(int j=0;j<m;j++){
+            if(grid[0][j]==1){
+                dfs(0,j,grid,delrow,delcol,n,m);
+            }
+            if(grid[n-1][j]==1){
+                dfs(n-1,j,grid,delrow,delcol,n,m);
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(grid[i][0]==1){
+                dfs(i,0,grid,delrow,delcol,n,m);
+            }
+            if(grid[i][m-1]==1){
+                dfs(i,m-1,grid,delrow,delcol,n,m);
+            }
+        }
+        int count = 0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==1){
+                    count++;
+                }
+                else if(grid[i][j]==2){
+                    grid[i][j]=1;
+                }
+
+            }
+        }
+        return count;
+    }
+
+
+//-----BFS-------
+class Pair{
+    int first;
+    int second;
+    Pair(int first, int second){
+        this.first = first;
+        this.second = second;
+    }
+}
+class Solution {
+     public int numEnclaves(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int vis[][] = new int[n][m];
+        Queue<Pair> q = new LinkedList<>();
+        int delrow[] = {-1,0,1,0};
+        int delcol[] = {0,+1,0,-1};
+
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                //first row, first col, last row, last col
+                if(i==0 || j==0 || i==n-1 || j==m-1){
+                    if(grid[i][j]==1){
+                        q.add(new Pair(i,j));
+                        vis[i][j]=1;
+                    }
+                }
+            }
+        }
+        int count = 0;
+        while(!q.isEmpty()){
+            int row = q.peek().first;
+            int col = q.peek().second;
+            q.remove();
+            for(int i=0;i<4;i++){
+                int nrow=row+delrow[i];
+                int ncol=col+delcol[i];
+                
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && vis[nrow][ncol]==0  && grid[nrow][ncol]==1){
+                    vis[nrow][ncol]=1;
+                    q.add(new Pair(nrow, ncol));
+                }
+            }
+
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]==0 && grid[i][j]==1){
+                    count++;
+                }
+                
+
+            }
+        }
+        return count;
+    }
+}
