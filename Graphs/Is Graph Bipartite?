@@ -1,0 +1,52 @@
+ //BFS
+    public boolean check(int start, int graph[][], int colors[]){
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(start);
+        colors[start] = 0;
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.remove();
+            for(int i : graph[node]){
+                if(colors[i]==-1){
+                    q.add(i);
+                    colors[i] = (colors[node]==0) ? 1 : 0;
+                }
+                else if(colors[i]==colors[node]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    //DFS
+    public boolean check(int start, int graph[][], int colors[], int c){
+        colors[start]=c;
+        // c = (c==0)? 1 : 0;
+        for(int node : graph[start]){
+            if(colors[node]==-1){
+                if(check(node,graph,colors,1-c)==false) return false;
+            }
+            else if(colors[node]==c){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int m = graph[0].length;
+        
+        int colors[] = new int[n];
+        Arrays.fill(colors,-1);
+        for(int i=0;i<n;i++){
+            if(colors[i]==-1){
+                /* BFS call */
+                // if(check(i, graph, colors)==false) return false;
+                /* DFS call */
+                if(check(i, graph, colors,0)==false) return false;
+            }
+        }
+        return true;
+        
+    }
