@@ -1,0 +1,25 @@
+public boolean isValid(String s) {
+        char bracArr[] = s.toCharArray();
+        Stack<Character> openBrac = new Stack<>();
+        for(int i=0;i<bracArr.length;i++){
+            if(bracArr[i]=='(' || bracArr[i]=='{' || bracArr[i]=='['){
+                openBrac.push(bracArr[i]);
+            }
+            else{
+                if(openBrac.isEmpty()){
+                    return false;
+                }
+                char ch = openBrac.pop();
+                if((bracArr[i]==')' && ch=='(')||(bracArr[i]=='}' && ch=='{')||(bracArr[i]==']' && ch=='[')){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        if(openBrac.isEmpty()){
+            return true;
+        }
+        return false;
+    }
