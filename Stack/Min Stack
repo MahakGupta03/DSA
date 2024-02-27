@@ -1,0 +1,60 @@
+// int min = Integer.MAX_VALUE;
+    // Stack<Integer> s1;
+
+    Long min = Long.MAX_VALUE;
+    Stack<Long> s;
+    public MinStack() {
+        // s1 = new Stack<>();
+        s = new Stack<>();
+    }
+    
+    public void push(int val) {
+        Long value = Long.valueOf(val);
+        if(s.isEmpty()){
+            min=value;
+            s.push(value);
+        }else{
+            if(value<min){
+                //pushing modified value in the stack (no reason)
+                s.push(2*value-min);
+                min=value;
+            }else{
+                s.push(value);
+            }
+        }
+
+
+    //    if(val<=min){
+    //        s1.push(min);
+    //        min=val;
+    //    }
+    //    s1.push(val);
+    }
+    
+    public void pop() {
+
+        if(s.isEmpty()) return;
+        Long value = s.pop();
+        //if the poped value is smaller than minimum then we have modified value on the top of stack so to get back original value we perform this step
+        if(value<min){
+            min=2*min-value;
+        }
+
+        // if(s1.pop()==min) min=s1.pop();
+    }
+    
+    public int top() {
+
+        Long value = s.peek();
+        if(value<min){
+            return min.intValue();
+        }
+        return value.intValue();
+
+        // return s1.peek();
+    }
+    
+    public int getMin() {
+        return min.intValue();
+        // return min;
+    }
