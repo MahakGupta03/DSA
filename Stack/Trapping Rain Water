@@ -1,3 +1,8 @@
+/*
+    TC-> O(3*N) as we are traversing through the array only once. And O(2*N) for computing prefix and suffix array.
+    sc-> O(N)+O(N) for prefix and suffix arrays.
+*/
+
 public int trap(int[] height) {
         int n = height.length;
         //prefix stores max height towards left
