@@ -1,0 +1,44 @@
+class Solution {
+    /* is intution me hum hr ek element ka contribution nikal rhe h ki vo kitne subarrays me 
+    minimum hai uske bd uske contribution ko hum us element ko uske contribution se multiply
+    krenge taki apn ko uska sum mil jaye or vohi answer hoga*/
+
+    public int sumSubarrayMins(int[] arr) {
+        long m = 1000000007;
+        int n = arr.length;
+        int total[] = new int[n];
+        Stack<Integer> st = new Stack<>();
+        //checking for left smallest element
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[i] < arr[st.peek()]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                total[i] = i+1;
+            }
+            else{
+                total[i] = i-st.peek();
+            }
+            st.push(i);
+        }
+        st = new Stack<>();
+        //checking for right smaller element
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[i] <= arr[st.peek()]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                total[i] *= (n-i);
+            }
+            else{
+                total[i] *= (st.peek()-i);
+            }
+            st.push(i);
+        }
+        long ans = 0;
+        for(int i=0;i<n;i++){
+            ans += (long)(((total[i]%m) * (arr[i]%m))%m);
+        }
+        return (int)(ans%m);
+    }
+}
