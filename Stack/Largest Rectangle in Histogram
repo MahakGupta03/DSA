@@ -11,24 +11,11 @@ class Pair{
 }
 
 class Solution {
+/*
+    TC-> O( N )
+    SC->  O(3N)
+*/
     public int largestRectangleArea(int[] heights) {
-        // int n=heights.length;
-        // Stack<Integer> s = new Stack<>();
-        // int max = heights[0];
-        // for(int i=0;i<n;i++){
-        //     if(s.isEmpty()==false && heights[i]>max){
-        //         max = heights[i];
-        //     }
-        //     if(s.isEmpty()==false && heights[i]>=s.peek()){
-        //         int tempMax = s.peek()+s.peek();
-        //         if(tempMax>max){
-        //             max = tempMax;
-        //         }
-        //     }
-        //     s.push(heights[i]);
-        // }
-        // return max;
-
         int n = heights.length;
         int lsi[] = new int[n];
         int rsi[] = new int[n];
@@ -87,4 +74,29 @@ class Solution {
             }
             return maxArea;
     }
+
+//---------MOST OPTIMAL--------------
+        /*
+            TC-> O( N ) + O (N)
+            SC->  O(N)
+         */
+        Stack<Integer> s = new Stack<>();
+        int maxArea = 0;
+        int n = heights.length;
+        for(int i=0;i<=n;i++){
+            //agr height[i] small h top element of stack se mtlb vo right smaller h or top of stack se niche wale me left smallest element h
+            while(!s.isEmpty() &&(i==n || heights[s.peek()]>=heights[i])){
+                int h = heights[s.peek()];
+                s.pop();
+                int width;
+                if(s.isEmpty()) width = i;
+                else{
+                    width = i-s.peek()-1;
+                }
+                maxArea = Math.max(maxArea, h*width);
+
+            }
+            s.push(i);
+        }
+        return maxArea;
 }
