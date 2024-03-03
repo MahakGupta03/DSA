@@ -1,0 +1,90 @@
+/* Take index of left minimum and right minimum from an element and use 
+right - left - 1 to get width and then use formula height X width */
+
+class Pair{
+    int first;
+    int second;
+    Pair(int ele, int index){
+        first = ele;
+        second = index;
+    }
+}
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        // int n=heights.length;
+        // Stack<Integer> s = new Stack<>();
+        // int max = heights[0];
+        // for(int i=0;i<n;i++){
+        //     if(s.isEmpty()==false && heights[i]>max){
+        //         max = heights[i];
+        //     }
+        //     if(s.isEmpty()==false && heights[i]>=s.peek()){
+        //         int tempMax = s.peek()+s.peek();
+        //         if(tempMax>max){
+        //             max = tempMax;
+        //         }
+        //     }
+        //     s.push(heights[i]);
+        // }
+        // return max;
+
+        int n = heights.length;
+        int lsi[] = new int[n];
+        int rsi[] = new int[n];
+        Stack<Pair> s = new Stack<>();
+        //index of next smaller to left
+        for(int i=0;i<n;i++){
+            int pseudoIndex = -1;
+            if(s.isEmpty()){
+                lsi[i] = pseudoIndex;
+            }
+            else if(!s.isEmpty() && s.peek().first>=heights[i]){
+                while(!s.isEmpty() && s.peek().first>=heights[i]){
+                    s.pop();
+                }
+                if(s.isEmpty()){
+                    lsi[i]=pseudoIndex;
+                }else{
+                    lsi[i] = s.peek().second;
+                }
+            }else{
+                lsi[i] = s.peek().second; 
+            }
+            s.push(new Pair(heights[i],i));
+
+        }
+        while(!s.isEmpty()){s.pop();}
+
+        //index of next smaller to right
+        for(int i=n-1;i>=0;i--){
+            int pseudoIndex = n;
+            if(s.isEmpty()){
+                rsi[i] = pseudoIndex;
+            }
+            else if(!s.isEmpty() && s.peek().first>=heights[i]){
+                while(!s.isEmpty() && s.peek().first>=heights[i]){
+                    s.pop();
+                }
+                if(s.isEmpty()){
+                    rsi[i]=pseudoIndex;
+                }else{
+                    rsi[i] = s.peek().second;
+                }
+            }else{
+                 rsi[i] = s.peek().second;
+            }
+            s.push(new Pair(heights[i],i));
+        }
+            int width[] = new int[n];
+            for(int i=0;i<n;i++){
+                width[i] = rsi[i]-lsi[i]-1;
+            }
+
+            int maxArea = Integer.MIN_VALUE;
+            for(int i=0;i<n;i++){
+                maxArea = Math.max(maxArea,heights[i]*width[i]);
+            }
+            return maxArea;
+    }
+}
