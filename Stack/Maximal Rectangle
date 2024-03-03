@@ -1,0 +1,94 @@
+class Pair{
+    int first;
+    int second;
+    Pair(int ele, int index){
+        first = ele;
+        second = index;
+    }
+}
+
+class Solution {
+
+    public int MAH(int temp[]){
+        int n = temp.length;
+        int lsi[] = new int[n];
+        int rsi[] = new int[n];
+        Stack<Pair> s1 = new Stack<>();
+        Stack<Pair> s2 = new Stack<>();
+        //index of next smaller to left
+        for(int i=0;i<n;i++){
+            int pseudoIndex = -1;
+            if(s1.isEmpty()){
+                lsi[i] = pseudoIndex;
+            }
+            else if(!s1.isEmpty() && s1.peek().first>=temp[i]){
+                while(!s1.isEmpty() && s1.peek().first>=temp[i]){
+                    s1.pop();
+                }
+                if(s1.isEmpty()){
+                    lsi[i]=pseudoIndex;
+                }else{
+                    lsi[i] = s1.peek().second;
+                }
+            }else{
+                lsi[i] = s1.peek().second; 
+            }
+            s1.push(new Pair(temp[i],i));
+
+        }
+
+        //index of next smaller to right
+        for(int i=n-1;i>=0;i--){
+            int pseudoIndex = n;
+            if(s2.isEmpty()){
+                rsi[i] = pseudoIndex;
+            }
+            else if(!s2.isEmpty() && s2.peek().first>=temp[i]){
+                while(!s2.isEmpty() && s2.peek().first>=temp[i]){
+                    s2.pop();
+                }
+                if(s2.isEmpty()){
+                    rsi[i]=pseudoIndex;
+                }else{
+                    rsi[i] = s2.peek().second;
+                }
+            }else{
+                 rsi[i] = s2.peek().second;
+            }
+            s2.push(new Pair(temp[i],i));
+        }
+            int width[] = new int[n];
+            for(int i=0;i<n;i++){
+                width[i] = rsi[i]-lsi[i]-1;
+            }
+
+            int maxArea = Integer.MIN_VALUE;
+            for(int i=0;i<n;i++){
+                maxArea = Math.max(maxArea,temp[i]*width[i]);
+            }
+            return maxArea;
+    }
+
+    public int maximalRectangle(char[][] matrix) {
+
+        int n = matrix[0].length;
+        int m = matrix.length;
+        int temp[] = new int[n];
+        int maxArea = Integer.MIN_VALUE;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]=='0'){
+                    temp[j]=0;
+                }else{
+                    temp[j]+=1;
+                }
+            }
+            
+            maxArea = Math.max(maxArea,MAH(temp));
+        }
+        return maxArea;
+
+        
+        
+    }
+}
