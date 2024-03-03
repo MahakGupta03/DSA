@@ -1,0 +1,27 @@
+class Pair{
+    int first;
+    int second;
+    Pair(int ele, int count){
+        first = ele;
+        second = count;
+    }
+}
+
+class StockSpanner {
+    Stack<Pair> s;
+    public StockSpanner() {
+        s= new Stack<>();
+    }
+    
+    public int next(int price) {
+        int count = 1;
+        while(s.isEmpty()==false && s.peek().first<=price){
+            count+=s.peek().second;
+            s.pop();
+        }
+        s.push(new Pair(price,count));
+        return s.peek().second;
+
+        
+    }
+}
