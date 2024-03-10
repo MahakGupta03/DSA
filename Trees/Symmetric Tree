@@ -1,0 +1,10 @@
+public boolean checkSymmetric(TreeNode p, TreeNode q){
+        if(p==null || q==null) return(p==q);
+        if(p.val!=q.val) return false;
+        return checkSymmetric(p.left,q.right) && checkSymmetric(p.right,q.left);
+    }
+
+    public boolean isSymmetric(TreeNode root) {
+        boolean flag = checkSymmetric(root.left, root.right);
+        return flag;
+    }
