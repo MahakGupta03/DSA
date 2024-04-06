@@ -1,0 +1,16 @@
+public boolean canJump(int[] nums) {
+        /* agar array me 0 nhi h ti hum pakka last index pr ja sakte h */
+        /* hum check kreenge ki maximum konse index tk reach kr skte h hr ek index se 
+        or agr traverse krete time hum maximum reachable se aage aa jate h to 
+        hum kbhi last index tk nhi ja payege or fakse return kr denge */
+        int n = nums.length;
+        int reachable = 0;
+        for(int i=0;i<n;i++){
+            if(reachable < i ){
+                return false;
+            }
+            reachable = Math.max(reachable, i+nums[i]);
+        }
+        return true;
+
+    }
