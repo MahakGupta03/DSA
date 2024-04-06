@@ -1,0 +1,70 @@
+/* BETTER APPORACH */
+    /*
+        TC-> O(N)
+        SC-> O(N)
+     */
+    // public boolean checkValidString(String s) {
+    //     Stack<Integer> st = new Stack<>();
+    //     Stack<Integer> star = new Stack<>();
+    //     for(int ch = 0; ch<s.length(); ch++){
+    //         if(s.charAt(ch)=='(') st.push(ch);
+    //         else if(s.charAt(ch)=='*'){
+    //             star.push(ch);
+    //         }
+    //         else{
+    //             if(!st.isEmpty()){
+    //                 st.pop();
+    //             }
+    //             else if(!star.isEmpty()){
+
+    //                 star.pop();
+    //             }
+    //             else{
+    //                 return false;
+    //             }
+    //         }
+
+    //     }
+    //     while(!st.isEmpty()){
+    //         if(star.isEmpty()) return false;
+    //         else if(st.peek()<star.peek()) {
+    //             st.pop();
+    //             star.pop();
+    //         }
+    //         else{
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+
+
+    /* GREEDY SOLUTION */
+    /*
+        TC-> O(N)
+        SC-> O(1)
+     */
+    public boolean checkValidString(String s) {
+        int cmin = 0, cmax = 0; // open parentheses count in range [cmin, cmax]
+        for(char ch : s.toCharArray()){
+            if(ch=='('){
+                cmin++;
+                cmax++;
+            }
+            else if(ch==')'){
+                cmin--;
+                cmax--;
+            }
+            else if(ch=='*'){
+                cmin--;  // if `*` become `)` then openCount--
+                cmax++;  // if `*` become `(` then openCount++
+                // if `*` become `` then nothing happens
+                // So openCount will be in new range [cmin-1, cmax+1]
+            }
+
+            if(cmax<0) return false;  // Currently, don't have enough open parentheses to match close parentheses-> Invalid
+                                        // For example: ())(
+            if(cmin<0) cmin =0;  // It's invalid if open parentheses count < 0 that's why cmin can't be negative
+        }
+        return cmin==0;  // Return true if can found `openCount == 0` in range [cmin, cmax]
+    }
