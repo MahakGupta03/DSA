@@ -1,0 +1,13 @@
+ public static int minValue(Node root) {
+        // Write your code here.
+        int mini = Integer.MAX_VALUE;
+        if(root==null) return -1;
+        while(root!=null){
+            if(root.data<mini){
+                mini = root.data;
+            }
+                root = root.left;
+        }
+        return mini;
+    }
+}
