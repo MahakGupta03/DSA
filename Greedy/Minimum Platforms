@@ -1,0 +1,27 @@
+static int findPlatform(int arr[], int dep[], int n)
+    {
+       /* first sort both starting and departure of the train then we will check if the 
+       starting of one train is before the departure of the previous train , 
+       if that is the case then one platform is to be added else we have an empty platform
+       so that a train can arrive at it */
+        
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int start = 1;
+        int end = 0;
+        int platform = 1;
+        int maxi = 1;
+        while(start<n && end <n){
+            if(arr[start]<=dep[end]){
+                platform++;
+                start++;
+            }
+            else{
+                platform--; //if there is no train than we have one empty platform
+                end++;
+            }
+            maxi = Math.max(maxi,platform);
+        }
+        return maxi;
+        
+    }
