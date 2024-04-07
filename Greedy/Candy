@@ -1,0 +1,29 @@
+/* ek br left to right move krke check krenge or agr i-1 ki rating km h i se to 
+    candy ko increase krenge, fir right se left move krenge or check krenge ki i ki 
+    rating i+1 se jada h or agr h to uski candies to increase krenge agr vo i+1 candy 
+    se km h to */
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int mini = 0;
+        int candyEach[] = new int[n];
+        Arrays.fill(candyEach, 1);
+        if(n==1) return 1;
+        // left to right
+        for(int i=1;i<n;i++){
+            if(ratings[i]>ratings[i-1]){
+                candyEach[i] = candyEach[i-1]+1;
+            }
+        }
+        //right to left
+        for(int i=n-2;i>=0;i--){
+            if(ratings[i]>ratings[i+1] && candyEach[i]<=candyEach[i+1]){
+                candyEach[i] = candyEach[i+1]+1;
+            }
+        }
+
+        for(int i=0;i<n;i++){
+            mini+= candyEach[i];
+        }
+        return mini;
+
+    }
