@@ -1,0 +1,23 @@
+/* BRUTE FORCE: In this we apply any traversal (eg: inorder) and store it into a list and then sort the list to get k-1 smallest element */
+
+/* BETTER: If we perform Inorder traversal in Binary Search Tree then we always get a sorted order hence from above apporach we remove sorting which decreases TC for soring */
+
+class Solution {
+    /* OPTIMAL: 
+        in this apporach we keep a counter pointer and apply inorder traversal 
+     */
+    int result;
+    int count;
+    public void inorder(TreeNode root, List<Integer> list,  int k){
+        if(root==null) return;
+        inorder(root.left, list, k);
+        count++;
+        if(count==k) result = root.val;
+        inorder(root.right, list,  k);
+    }
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> list = new ArrayList<>();
+        inorder(root, list, k);
+        return result;
+    }
+}
