@@ -1,0 +1,16 @@
+/*
+        TC-> O(H) H is height of tree
+     */
+     
+    /* since it is a BST the there can be several cases, 
+    first that both p and q can be on right of root, second is both p and q lies on left
+    of root and the third is one lies on left and other lies in right. 
+    So we apply recursion till both are on left or both are on right.
+    If one is on left and other is on right then the splitting root node is our answer */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) return null;
+        int curr = root.val;
+        if(p.val<curr && q.val<curr) return lowestCommonAncestor(root.left, p, q);
+        if(p.val>curr && q.val>curr) return lowestCommonAncestor(root.right, p, q);
+        return root;
+    }
