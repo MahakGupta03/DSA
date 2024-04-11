@@ -1,0 +1,20 @@
+/*
+        TC-> O(N) where n is the number of nodes.
+        SC-> O(N), auxiliary space.
+     */
+    /* left or right jakr check krenge ki p or q root kaha pr h jese hi dono root mile jayenge hum hume LCA mil jayega */
+    public TreeNode lca(TreeNode root, TreeNode p, TreeNode q){
+        if(root==null || root==p || root==q) return root;
+        TreeNode leftRoot = lca(root.left, p,q);
+        TreeNode rightRoot = lca(root.right, p,q);
+        /* ye if else same h niche return wale statement k */
+        // if(leftRoot==null) return rightRoot;
+        // else if(rightRoot==null) return leftRoot;
+        //return root;
+        return leftRoot==null ? rightRoot : rightRoot==null ? leftRoot : root;
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode ans = lca(root, p,q);
+        return ans;
+    }
