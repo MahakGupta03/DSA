@@ -1,0 +1,17 @@
+ /* hum iske ek upper bound rakh rhe h range define krne k liye.
+    is intution me hum agr left move krenge to current node ko bound bna denge or agr
+    right move krenge to koi change nhi krenge bound me, or agr elelmnt bound se bda ho 
+    jata h to null return kr denge */
+
+    //idhr i[0] el veriable jesa work kr raha h preorder array me traverse krenge k liye because java me array as a referance pass hote h but variables nhi.
+    public TreeNode build(int[] preorder, int bound, int i[]){
+        if(i[0]==preorder.length || preorder[i[0]]>bound) return null;
+        TreeNode root = new TreeNode(preorder[i[0]++]);
+        root.left = build(preorder, root.val, i);
+        root.right = build(preorder, bound, i);
+        return root;
+    }
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return build(preorder, Integer.MAX_VALUE, new int[]{0});
+    }
