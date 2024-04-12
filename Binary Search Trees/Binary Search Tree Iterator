@@ -1,0 +1,60 @@
+/* Striver Apporach */
+ /*
+    TC-> O(1) for next() and hasNext() method
+    SC-> O(H) H is height of tree
+  */
+ /* in this apporach we take the idea of inorder traversal such that we first add all the 
+ left elements of the tree in stack , and when the next method is called we look stack top 
+ and then take the element out and move to its right child and add in stack. 
+ If the stack  becomes empty then hasNext() method return false */
+class BSTIterator {
+    Stack<TreeNode> st = new Stack();
+    public BSTIterator(TreeNode root) {
+       pushAll(root);
+    }
+
+    public void pushAll(TreeNode root){
+        for( ;root!=null;st.push(root), root=root.left);
+    }
+    
+    public int next() {
+        TreeNode temp = st.peek();
+        st.pop();
+        pushAll(temp.right);
+        return temp.val;
+    }
+    
+    public boolean hasNext() {
+        if(!st.isEmpty()) return true;
+        return false;
+    }
+}
+
+/* My Apporach */
+// class BSTIterator {
+//     int i;
+//     List<Integer> ans;
+//     public BSTIterator(TreeNode root) {
+//         this.ans = new ArrayList<>();
+//         inorder(root, ans);
+//         this.i = -1;
+//     }
+
+//     public void inorder(TreeNode root, List<Integer> ans){
+//         if(root==null) return;
+//         inorder(root.left, ans);
+//         ans.add(root.val);
+//         inorder(root.right, ans);
+//     }
+    
+//     public int next() {
+//         if(!hasNext()) return -1;
+//         i++;
+//         return ans.get(i);
+//     }
+    
+//     public boolean hasNext() {
+//         if(i+1>=ans.size()) return false;
+//         return true;
+//     }
+// }
