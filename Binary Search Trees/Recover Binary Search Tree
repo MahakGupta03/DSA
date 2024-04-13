@@ -1,0 +1,76 @@
+//OPTIMAL
+ /* isme hum jese inorder perform krete h vese hi krenge bs modification ye h ki 
+ hum ek prev pointer rakhenge jo btayega ki first konsa element h jo swap hoga.
+ Isme do contions bn sakti h ya to dono nodes alg alg jagah h ya fir adjacent h , 
+ agr alg alg h to humko first and last se mil jayegi, 
+ but agr adjacent h to uske liye hum middle pointer bhi lekr chalenge */
+class Solution {
+    public TreeNode first;
+    public TreeNode middle;
+    public TreeNode prev;
+    public TreeNode last;
+
+    public void inorder(TreeNode root){
+        if(root==null) return;
+        inorder(root.left);
+        if(prev!=null && (root.val<prev.val)){
+            //for first node that need to be swapped
+            if(first==null){
+                first = prev;
+                middle = root;
+            }
+            //for second node that need to be swapped
+            else{
+                last = root;
+            }
+        }
+        prev = root;
+        inorder(root.right);
+    }
+
+    public void recoverTree(TreeNode root) {
+        first=middle=last=null;
+        prev = new TreeNode(Integer.MIN_VALUE);
+        inorder(root);
+        //if nodes are apart from each other
+        if(first!=null && last!=null){
+            int temp = first.val;
+            first.val = last.val;
+            last.val = temp;
+        }
+        //if nodes are adjancent to each order
+        else if(first!=null && middle!=null){
+            int temp = first.val;
+            first.val = middle.val;
+            middle.val = temp;
+        }
+    }
+}
+
+//BRUTE FORCE
+/* In this first we take inorder traversal of the tree and store it , 
+then we again make an inorder traversal and change the value of the nodes according to 
+inorder traversal */
+// class Solution {
+//     int i;
+//     public void inorder(TreeNode root, List<Integer> ans){
+//         if(root==null) return;
+//         inorder(root.left, ans);
+//         ans.add(root.val);
+//         inorder(root.right, ans);
+//     }
+//     public void changeInorder(TreeNode root, List<Integer> ans){
+//         if(root==null ) return;
+//         changeInorder(root.left, ans);
+//         root.val = ans.get(i++);
+//         changeInorder(root.right, ans);
+//     }
+
+//     public void recoverTree(TreeNode root) {
+//         List<Integer> ans = new ArrayList<>();
+//         inorder(root, ans);
+//         i=0;
+//         Collections.sort(ans);
+//         changeInorder(root, ans);
+//     }
+// }
