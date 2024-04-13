@@ -1,0 +1,85 @@
+/* 
+    TC-> O(N)
+    SC-> O(H)*2
+ */
+/* this binary iterator is used to perform two pointer apporach. 
+In this we have used reverse to get data in decenting order while normal BSTIterator gives data in ascending order.
+To perform reverse we just perform oppsite of what we do to for normal iteration */
+class BSTIterator {
+    Stack<TreeNode> st = new Stack();
+    boolean reverse;
+    public BSTIterator(TreeNode root, boolean isReverse) {
+        reverse = isReverse;
+        pushAll(root);
+    }
+
+    public void pushAll(TreeNode root){
+        while(root!=null){
+            st.push(root);
+            if(reverse==false) root = root.left;
+            else root = root.right;
+        }
+    }
+    
+    public int next() {
+        TreeNode temp = st.peek();
+        st.pop();
+        if(reverse==false) pushAll(temp.right);
+        else pushAll(temp.left);
+        return temp.val;
+    }
+    
+    public boolean hasNext() {
+        if(!st.isEmpty()) return true;
+        return false;
+    }
+}
+
+
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        BSTIterator l = new BSTIterator(root,false);
+        BSTIterator r = new BSTIterator(root,true);
+        int i = l.next();
+        int j = r.next();
+        while(i<j){
+            if(i+j==k) return true;
+            else if(i+j < k) i = l.next();
+            else j = r.next();
+        }
+        return false;
+    }
+}
+
+
+
+/* 
+    TC-> O(N) + O(N)
+    SC-> O(N)
+ */
+
+// class Solution {
+//     public void inorder(TreeNode root, List<Integer> ans){
+//         if(root==null) return;
+//         inorder(root.left, ans);
+//         ans.add(root.val);
+//         inorder(root.right,ans);
+//     }
+//     public boolean findTarget(TreeNode root, int k) {
+//         List<Integer> ans = new ArrayList<>();
+//         inorder(root, ans);
+//         int start = 0;
+//         int end = ans.size()-1;
+//         while(start<end){
+//             if(ans.get(start)+ans.get(end)==k) return true;
+//             else if(ans.get(start)+ans.get(end) > k){
+//                 end--;
+//             }
+//             else{
+//                 start++;
+//             }
+//         }
+//         return false;
+//     }
+// }
