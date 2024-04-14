@@ -1,0 +1,15 @@
+public void leavesSum(TreeNode root, int sum[], int flag){
+        if(root==null) return ;
+        if(root.left==null && root.right==null && flag==1){
+            sum[0] += root.val;
+        }
+        flag=1;
+        leavesSum(root.left, sum, flag);
+        flag = 0;
+        leavesSum(root.right, sum, flag);
+    }
+    public int sumOfLeftLeaves(TreeNode root) {
+        int sum[] = new int[]{0};
+        leavesSum(root, sum, 0);
+        return sum[0];
+    }
