@@ -1,0 +1,17 @@
+public static int sqrtN(long N) {
+		//  int ans = 1;
+		 long s = 1;
+		 long e = N;
+		 while(s<=e){
+			 long mid = (int)(s+e)/2;
+			 long val = mid*mid;
+			 if(val<=N){
+				//  ans = mid;
+				 s=mid+1;
+			 }
+			 else{
+				 e = mid-1;
+			 }
+		 }
+		 return (int)e;
+	}
