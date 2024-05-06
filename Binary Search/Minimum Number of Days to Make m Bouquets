@@ -1,0 +1,42 @@
+class Solution {
+    public int totalBouquet(int arr[], int day, int k){
+        int count = 0;
+        int maxCount = 0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]<=day){
+                count++;
+            }else{
+                maxCount += (count/k);
+                count = 0;
+            }
+        }
+        maxCount += (count/k);
+        return maxCount;
+        
+    }
+
+    public int minDays(int[] bloomDay, int m, int k) {
+        long val = (long) m*k;
+        if(val > bloomDay.length) return -1;
+        int mini = Integer.MAX_VALUE;
+        int mx = Integer.MIN_VALUE;
+        for(int i=0;i<bloomDay.length;i++){
+            mini = Math.min(mini, bloomDay[i]);
+            mx = Math.max(mx, bloomDay[i]);
+        }
+        int s = mini;
+        int e = mx;
+        int ans = -1;
+        while(s<=e){
+            int mid = (s+e)/2;
+            int count = totalBouquet(bloomDay, mid, k);
+            if(count<m){
+                s = mid+1;
+            }
+            else{
+                e = mid-1;
+            }
+        }
+        return s;
+    }
+}
