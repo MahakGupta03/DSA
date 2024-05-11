@@ -1,0 +1,47 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        /* OPTIMAL  */
+
+        //hr row k last element ko check kra agr vo target se chota h to element us row me nhi h row ko plus krdo or agr row ka last element target se bada h mtlb target ussi row me h tb col ko minus krte jao jb tk element na mile 
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int row = 0;
+        int col = n-1;
+        if(matrix.length==0) return false;
+        while(row<m && col>=0){
+            if(matrix[row][col]==target){
+                return true;
+            }
+            else if(matrix[row][col]<target){
+                row++;
+            }
+            else{
+                col--;
+            }
+        }
+        return false;
+
+
+
+        // int m = matrix.length;
+        // int n = matrix[0].length;
+        // int row = 0 , col = n-1;
+        
+        // if(matrix .length == 0){
+        //     return false;
+        // }
+        // while(row<m && col>=0){
+        //         if(matrix[row][col]==target){
+        //             return true;
+        //         }
+        //         else if(matrix[row][col] <target){
+        //             row +=1;
+        //         }else{
+        //             col-=1;
+        //         }
+            
+        // }
+        // return false;
+        
+    }
+}
