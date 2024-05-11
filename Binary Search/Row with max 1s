@@ -1,0 +1,29 @@
+class Solution {
+    public int count1(int arr[], int n){
+        int start = 0;
+        int end = n-1;
+        while(start<=end){
+            int mid = (start+end)/2;
+            if(arr[mid]==1){
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+        }
+        return n-start;
+    }
+    
+    int rowWithMax1s(int arr[][], int n, int m) {
+        // code here
+        int maxCount = 0;
+        int maxIdx = -1;
+        for(int i=0;i<n;i++){
+            if(count1(arr[i], m) > maxCount){
+                maxCount = count1(arr[i], m);
+                maxIdx = i;
+            }
+        }
+        return maxIdx;
+    }
+}
