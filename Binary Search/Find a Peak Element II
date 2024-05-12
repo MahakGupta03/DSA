@@ -1,0 +1,34 @@
+/*is intution me hum pehle el column nikalenge fir us column k maximum element ko nikalenge, 
+isse hmare ps vo elelemt aa jayega jiske upr or niche usse chote element h, 
+then hum us elemet k left or right elemet ko check krenge agr vo chote h to 
+answer return kra denge nahi to start or end ko move krenge*/
+class Solution {
+    public int findMaxIndex(int arr[][], int n, int m, int col){
+        int maxEle = -1;
+        int index = -1;
+        for(int i=0;i<n;i++){
+            if(maxEle<arr[i][col]){
+                maxEle = arr[i][col];
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int[] findPeakGrid(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int start = 0;
+        int end = m-1;
+        while(start<=end){
+            int mid = (start+end)/2;
+            int maxRowIndex = findMaxIndex(mat, n, m, mid);
+            int left = mid-1>=0 ? mat[maxRowIndex][mid-1] : -1;
+            int right = mid+1<m ? mat[maxRowIndex][mid+1] : -1;
+            if(mat[maxRowIndex][mid]>left && mat[maxRowIndex][mid]>right) return new int[]{maxRowIndex, mid};
+            else if(mat[maxRowIndex][mid]<right) start = mid+1;
+            else end = mid-1; 
+        }
+        return new int[]{-1,-1};
+    }
+}
