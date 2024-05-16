@@ -1,0 +1,32 @@
+class Solution {
+    int countSmall(int arr[][], int num, int n, int m){
+        int count =0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(arr[i][j]<=num) count++;
+            }
+        }
+        return count;
+    }
+    int median(int matrix[][], int R, int C) {
+        // code here  
+        int mini = Integer.MAX_VALUE;
+        int mx = Integer.MIN_VALUE;
+        for(int i=0;i<R;i++){
+            mini = Math.min(mini,matrix[i][0]);
+            mx = Math.max(mx, matrix[i][C-1]);
+        }
+        
+        int start = mini;
+        int end = mx;
+        int req = (R*C)/2;
+        while(start<=end){
+            int mid = (start+end)/2;
+            if(countSmall(matrix, mid, R, C)<=req){
+                start = mid+1;
+            }
+            else end = mid-1;
+        }
+        return start;
+    }
+}
