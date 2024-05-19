@@ -1,0 +1,65 @@
+class Solution {
+//STRIVER
+    /* ise hum pehle last node ko head se connect kr denge fir n-(k%n) time traverse krenge. 
+    head ko update kr denge or n-(k%n)th element k next ko null kr denge */
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null || head.next==null) return head;
+
+        int n = 1;
+        ListNode curr = head;
+        while(curr.next!=null){
+            curr= curr.next;
+            n++;
+        }
+        if(k%n==0) return head;
+        int rem = n-(k%n);
+        curr.next = head;
+        ListNode newLastNode = findNthNode(head, rem);
+        
+        head = newLastNode.next;
+        newLastNode.next = null;
+        
+        return head;
+    }
+
+    public ListNode findNthNode(ListNode temp, int k){
+        int count =1;
+        while(temp!=null){
+            if(count==k) return temp;
+            count++;
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+
+
+//MYSELF
+    // public ListNode rotateRight(ListNode head, int k) {
+    //     if(head==null || head.next==null) return head;
+
+    //     int n = 0;
+    //     ListNode curr = head;
+    //     while(curr!=null){
+    //         n++;
+    //         curr= curr.next;
+    //     }
+
+    //     if(k%n==0) return head;
+        
+    //     int rem = n-(k%n);
+    //     curr = head;
+    //     ListNode prev = null;
+    //     for(int i=0;i<rem;i++){
+    //         prev = curr;
+    //         curr = curr.next;
+    //     }
+    //     prev.next = null;
+    //     ListNode newHead = curr;
+    //     while(curr.next!=null){
+    //         curr = curr.next;
+    //     }
+    //     curr.next = head;
+    //     return newHead;
+    // }
+}
