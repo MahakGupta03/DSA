@@ -1,0 +1,20 @@
+public int func(int i, int target, int arr[], int dp[][]){
+        
+        if(i==-1) return target==0 ? 1 : 0;
+        if(dp[i][target]!=-1) return dp[i][target];
+        int notTake = func(i-1, target, arr, dp);
+        int take = 0;
+        if(arr[i]<=target) take = func(i-1, target-arr[i], arr, dp);
+        return dp[i][target] = (take+notTake)%1000000007;
+        
+    }
+
+	public int perfectSum(int arr[],int n, int sum) 
+	{ 
+	    // Your code goes here
+	    int dp[][] = new int[n][sum+1];
+	    for(int []row : dp){
+	        Arrays.fill(row, -1);
+	    }
+	    return func(n-1, sum, arr, dp);
+	} 
