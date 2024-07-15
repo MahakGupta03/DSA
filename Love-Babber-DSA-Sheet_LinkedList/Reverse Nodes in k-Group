@@ -1,0 +1,50 @@
+//CHECK STRIVERS CODE FROM HIS WEBSITE OR "https://takeuforward.org/data-structure/reverse-linked-list-in-groups-of-size-k/"
+
+//MINE
+    public ListNode reverseList(ListNode start, ListNode end){
+        ListNode curr = start;
+        ListNode prev = null;
+        while(curr!=end){
+            ListNode currNext = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = currNext;
+        }
+        curr.next = prev;
+        return start;
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode curr = head;
+        int size = 0;
+        while(curr!=null){
+            size++;
+            curr = curr.next;
+        }
+        if(size<k) return head;
+        ListNode startNode = head;
+        ListNode endNode;
+        ListNode tempNode;
+        ListNode prev = null;
+        for(int i=0;i<size/k;i++){
+            int j=0;
+            endNode = startNode;
+            while(j<k-1){
+                endNode = endNode.next;
+                j++;
+            }
+            tempNode = endNode.next;
+            ListNode newNode = reverseList(startNode, endNode);
+            // newNode.next = tempNode;
+            if(startNode==head){
+                head = endNode;
+            }else {
+                prev.next = endNode;
+            }
+            prev = newNode;
+            startNode = tempNode;
+            
+        }
+        prev.next = startNode;
+        return head;
+    }
