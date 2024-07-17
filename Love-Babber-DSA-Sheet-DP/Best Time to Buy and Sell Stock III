@@ -1,0 +1,26 @@
+//for buy = 1 means we can buy the stock and -price[i] takes place when we buy a stock as we give money in buying
+// cap is used to check 2 transactions
+    public int getProfit(int idx, int buy, int cap, int prices[], int dp[][][]){
+        if(idx==prices.length || cap==0) return 0;
+        if(dp[idx][buy][cap]!=-1) return dp[idx][buy][cap];
+        int profit = 0;
+        if(buy == 1){
+            profit = Math.max(-prices[idx] + getProfit(idx+1, 0, cap, prices, dp), 0 + getProfit(idx+1, 1, cap, prices, dp));
+        }
+        else{
+            profit = Math.max(prices[idx] + getProfit(idx+1, 1, cap-1, prices, dp), 0 + getProfit(idx+1, 0, cap, prices, dp));
+        }
+        return dp[idx][buy][cap] = profit;
+    }
+
+
+    public int maxProfit(int[] prices) {
+        int n =  prices.length;
+        int dp[][][] = new int[prices.length+1][2][3];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 2; j++) {
+                Arrays.fill(dp[i][j], -1);
+            }
+        }
+        return getProfit(0, 1, 2, prices, dp);
+    }
