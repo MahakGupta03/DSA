@@ -1,4 +1,5 @@
-//for buy = 1 means we can buy the stock and -price[i] takes place when we buy a stock as we give money in buying
+//MEMOIZATION
+    //for buy = 1 means we can buy the stock and -price[i] takes place when we buy a stock as we give money in buying
     // cap is used to check 2 transactions
     public int getProfit(int idx, int buy, int cap, int prices[], int dp[][][]){
         if(idx==prices.length || cap==0) return 0;
