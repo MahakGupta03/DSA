@@ -1,0 +1,30 @@
+class Solution {
+    public double myPow(double x, int n) {
+    /* RECURSION */
+        // if(n==1){
+        //     return x;
+        // }
+        // return (x * myPow(x,n-1));
+
+/* BINARY EXPONENTIATION
+    TC-> O(logn)
+ */
+        long num = n;
+        double ans = 1.0;
+        if(num<0) num = (-1) * num;
+        while(num>0){
+            //agr odd power h to hum ek br us number se multiply kr denge taki power even ho jaye. eg: (4)^3 = 4 * (4)^2
+            if(num%2==1){
+                ans = ans*x;
+                num = num-1;
+            }
+            //agr power even h to number ko ussi se multiply krke power ko half krdp. eg: (2)^10 = ((2)^2)^5
+            else{
+                x = x*x;
+                num = num/2;
+            }
+        }
+        if(n<0) ans = (double) 1.0/ ans;
+        return ans;
+    }
+}
