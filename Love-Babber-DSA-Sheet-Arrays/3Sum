@@ -1,5 +1,4 @@
 class Solution {
-
 //OPTIMAL
     /* isme hum 2 pointer ka use krenge, i ko fix rakhenge or j and k ko move krenge , 
     agr sum 0 se chota ho jata h to hum sum bdhaenge j++ krke,
@@ -35,7 +34,13 @@ class Solution {
        return ans;
     }
 
-/*BETTER -  ek set bnao taki koi bhi triplet repeat na ho, for 3 loops ka use krke triplet find kro unko list me add kro, 
+
+/* BETTER - isme hum 2 set rakhenge, hum i or j move krenge or third element ko find krenge i or j ki help se, agr 3rd element set me h to i,j 
+or third milker ek triplet bnayenge fir unko sort krke final set me add kr denge */
+
+
+
+/*BRUTE FORCE -  ek set bnao taki koi bhi triplet repeat na ho, for 3 loops ka use krke triplet find kro unko list me add kro, 
 list ko sort kro or usko set me dal do, last me set jo bhi h vo answer h */
     // public List<List<Integer>> threeSum(int[] nums) {
         
