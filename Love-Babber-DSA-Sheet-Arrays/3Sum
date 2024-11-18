@@ -34,6 +34,9 @@ class Solution {
        }
        return ans;
     }
+
+/*BETTER -  ek set bnao taki koi bhi triplet repeat na ho, for 3 loops ka use krke triplet find kro unko list me add kro, 
+list ko sort kro or usko set me dal do, last me set jo bhi h vo answer h */
     // public List<List<Integer>> threeSum(int[] nums) {
         
     //     Set<List<Integer>> set = new HashSet<>();
