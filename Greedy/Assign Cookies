@@ -1,3 +1,5 @@
+/* sort the grred and size array and set i and j to their ends, now check if the size at j can fulfill child greed or not , if yes then move i and j backward, else move i backward to find the greed value that can be fulfilled by the size at j */
+
 public int findContentChildren(int[] g, int[] s) {
         Arrays.sort(g);
         Arrays.sort(s);
