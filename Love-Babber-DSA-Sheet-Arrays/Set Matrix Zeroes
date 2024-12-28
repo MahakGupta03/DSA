@@ -1,0 +1,98 @@
+class Solution {
+
+/* BRUTE FORCE[O((N*M)*(N + M)) + O(N*M)] - agr element 0 h to uski puri row or colulm ko -1 krdo except agr koi 0 h to, fir ek or br pura matix traverse kro or jaha jaha -1 h usko 0 krdo */
+    // public void setZeroes(int[][] matrix) {
+    //     int m = matrix.length;
+    //     int n = matrix[0].length;
+    //     for(int i=0;i<m;i++){
+    //         for(int j=0;j<n;j++){
+    //             if(matrix[i][j]==0){
+    //                 for(int k=0;k<m;k++){
+    //                     if(matrix[k][j]!=0) matrix[k][j]=-1;
+    //                 }
+    //                 for(int k=0;k<n;k++){
+    //                     if(matrix[i][k]!=0) matrix[i][k]=-1;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     for(int i=0;i<m;i++){
+    //         for(int j=0;j<n;j++){
+    //             if(matrix[i][j]==-1){
+    //                 matrix[i][j]=0;
+    //             }
+    //         }
+    //     }
+    // }
+
+
+/* BETTER [O(2*(N*M))] - 2 extra array bnao ek row or ek col k liye, matrix me jaha 0 aaya us row or col ko respective array me mark krd0, fir ek or br traverse kro or jo row or col marked h unhe 0 krdo matrix me 
+
+SC-> O(N) + O(M)
+*/
+    // public void setZeroes(int[][] matrix){
+    //     int m = matrix.length;
+    //     int n = matrix[0].length;
+    //     int hrow[] = new int[m];
+    //     int hcol[] = new int[n];
+
+    //     for(int i=0;i<m;i++){
+    //         for(int j=0;j<n;j++){
+    //             if(matrix[i][j]==0){
+    //                 hrow[i] = -1;
+    //                 hcol[j] = -1;
+    //             }
+    //         }
+    //     }
+    //     for(int i=0;i<m;i++){
+    //         for(int j=0;j<n;j++){
+    //             if(hrow[i]==-1 || hcol[j]==-1){
+    //                 matrix[i][j] = 0;
+    //             }
+    //         }
+    //     }
+
+    // }
+
+
+/* OPTIMAL [O(2*(N*M))] - same as better but insted of creating extra arrays we keep track in same array , since we are marking within same matrix so matrix[0][0] will we taken 2 times so we take it only for row and for marking column 0 we take another variable as col0
+
+SC-> O(1)*/
+    public void setZeroes(int[][] matrix){
+        int m = matrix.length;
+        int n = matrix[0].length;
+        //since we are marking within same matrix so matrix[0][0] will we taken 2 times so we take it only for row and for marking col we take another variable as col0
+        int col0 = 1;
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==0){
+                    matrix[i][0] = 0;
+                    if(j!=0) matrix[0][j] = 0;
+                    else col0 = 0;
+                }
+            }
+        }
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                if(matrix[i][j]!=0){
+                    if(matrix[0][j]==0 || matrix[i][0]==0){
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+        }
+
+        if(matrix[0][0]==0){
+            for(int j=0;j<n;j++){
+                matrix[0][j] = 0;
+            }
+        }
+        if(col0==0){
+            for(int i=0;i<m;i++){
+                matrix[i][0] = 0;
+            }
+        }
+
+    }
+}
